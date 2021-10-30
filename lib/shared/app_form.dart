@@ -7,38 +7,43 @@ import 'package:google_fonts/google_fonts.dart';
 class AppFrom extends StatelessWidget {
   final TextEditingController textEditController;
   final String hintText;
-  final IconData icon;
+  final IconData? icon;
   const AppFrom({
     Key? key,
     required TextEditingController this.textEditController,
     required String this.hintText,
-    required IconData this.icon,
+    IconData? this.icon,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: Responsive.screenWidth(85, context),
-      child: TextFormField(
-        cursorColor: AppColors.kBlack,
-        controller: textEditController,
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: GoogleFonts.aBeeZee(
-              color: AppColors.ktextHintColor, fontSize: FontSizes.middleSize),
-          fillColor: AppColors.kWhite,
-          suffixIcon: Icon(
-            icon,
-            color: AppColors.kiconColor,
-          ),
-          filled: true,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4),
-            borderSide: const BorderSide(
-              color: AppColors.kAmber,
+    return Material(
+      elevation: 3,
+      borderRadius: BorderRadius.circular(4),
+      child: SizedBox(
+        width: Responsive.screenWidth(85, context),
+        child: TextFormField(
+          cursorColor: AppColors.kBlack,
+          controller: textEditController,
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: GoogleFonts.aBeeZee(
+                color: AppColors.ktextHintColor,
+                fontSize: FontSizes.middleSize),
+            fillColor: AppColors.kWhite,
+            suffixIcon: Icon(
+              icon,
+              color: AppColors.kiconColor,
+            ),
+            filled: true,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+              borderSide: const BorderSide(
+                color: AppColors.kAmber,
+              ),
             ),
           ),
         ),

@@ -8,8 +8,8 @@ class AppColors {
   static const Color kAmberShade = Color(0xFFFFD23E);
   static const Color ktextHintColor = Colors.grey;
   static const Color kiconColor = Colors.grey;
-  static const Color kBlue = Color(0xff4267B2);
+  static const Color kBlue = Color(0xFF003DB8);
   static const Color kBlueShade = Color(0xFF4D79CF);
-   static const Color kPink = Color(0xFFDA108C);
-  static const Color kPinkShade = Color(0xFFEE2AA3);
+  static const Color kRed = Color(0xFFDA0A0A);
+  static const Color kRedShade = Color(0xFFF84545);
 }
