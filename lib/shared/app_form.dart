@@ -23,6 +23,10 @@ class AppFrom extends StatelessWidget {
       child: SizedBox(
         width: Responsive.screenWidth(85, context),
         child: TextFormField(
+          style: GoogleFonts.aBeeZee(
+            color: AppColors.kBlack,
+            fontSize: FontSizes.middleSize,
+          ),
           cursorColor: AppColors.kBlack,
           controller: textEditController,
           decoration: InputDecoration(
@@ -42,7 +46,7 @@ class AppFrom extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4),
               borderSide: const BorderSide(
-                color: AppColors.kAmber,
+                color: AppColors.primaryColor,
               ),
             ),
           ),

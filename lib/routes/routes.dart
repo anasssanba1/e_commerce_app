@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
-  static const String signUpPage = '/';
+  static const String signUpPage = '/signuppage';
   static const String homePage = '/homepage';
   static routes(BuildContext context) {
     return {

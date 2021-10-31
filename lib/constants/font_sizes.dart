@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 
 class FontSizes {
   static const double bigTitle = 35;
+  static const double bigSize = 25;
   static const double title = 20;
-  static const double middleSize = 16;
+  static const double middleSize = 17;
   static const double smallSize = 14;
   static const double tinySize = 12;
 }

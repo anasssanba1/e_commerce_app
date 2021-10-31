@@ -1,10 +1,9 @@
 import 'package:e_commerce/constants/app_colors.dart';
 import 'package:e_commerce/constants/font_sizes.dart';
 import 'package:e_commerce/features/authentication/controllers/auth_controller.dart';
+import 'package:e_commerce/features/authentication/views/log_in_page.dart';
 import 'package:e_commerce/features/authentication/widgets/app_logo.dart';
 import 'package:e_commerce/features/authentication/widgets/email_from.dart';
-import 'package:e_commerce/features/authentication/widgets/facebook_sign_in_button.dart';
-import 'package:e_commerce/features/authentication/widgets/google_sign_in_button.dart';
 import 'package:e_commerce/features/authentication/widgets/password_from.dart';
 import 'package:e_commerce/features/authentication/widgets/sign_up_button.dart';
 import 'package:e_commerce/services/firebase/auth_service.dart';
@@ -25,73 +24,109 @@ class SignUpPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: Responsive.screenHeight(3, context),
-            ),
-            const AppLogo(),
-            SizedBox(
-              height: Responsive.screenHeight(2.5, context),
-            ),
-            Container(
-              alignment: Alignment.center,
-              child: AppText(
-                text: 'Infinite Energy',
-                color: AppColors.kBlack,
-                fontSize: FontSizes.bigTitle,
-                fontWeight: FontWeights.extraBold,
+        child: DefaultTabController(
+          length: 2,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: Responsive.screenHeight(7, context),
               ),
-            ),
-            SizedBox(
-              height: Responsive.screenHeight(1, context),
-            ),
-            AppText(
-                text: 'Sign Up to continue',
-                fontSize: FontSizes.middleSize,
-                color: AppColors.kBlack),
-            SizedBox(
-              height: Responsive.screenHeight(5, context),
-            ),
-            EmailForm(),
-            SizedBox(
-              height: Responsive.screenHeight(2, context),
-            ),
-            PasswordForm(),
-            SizedBox(
-              height: Responsive.screenHeight(2, context),
-            ),
-            AppFrom(
-              textEditController: TextEditingController(),
-              hintText: 'Confirm Password',
-            ),
-            SizedBox(
-              height: Responsive.screenHeight(2, context),
-            ),
-            AppFrom(
-              textEditController: TextEditingController(),
-              hintText: 'UserName',
-              icon: Icons.person,
-            ),
-            SizedBox(
-              height: Responsive.screenHeight(2, context),
-            ),
-            SignUpButton(),
-            SizedBox(
-              height: Responsive.screenHeight(4, context),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const GoogleSignInButton(),
-                SizedBox(
-                  width: Responsive.screenWidth(3, context),
+              //const AppLogo(),
+              SizedBox(
+                height: Responsive.screenHeight(2.5, context),
+              ),
+              SizedBox(
+                height: Responsive.screenHeight(1, context),
+              ),
+              const AppLogo(),
+              SizedBox(
+                height: Responsive.screenHeight(5, context),
+              ),
+              Container(
+                height: Responsive.screenHeight(8, context),
+                child: Theme(
+                  data: ThemeData(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                  ),
+                  child: TabBar(
+                    indicator: UnderlineTabIndicator(
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: AppColors.primaryColor,
+                      ),
+                      insets: EdgeInsets.symmetric(horizontal: 20),
+                    ),
+                    tabs: [
+                      Tab(
+                        child: AppText(
+                          text: 'Sign Up',
+                          fontSize: FontSizes.middleSize,
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                      Tab(
+                        child: AppText(
+                          text: 'Log In',
+                          fontSize: FontSizes.middleSize,
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                const FacebookSignInButton(),
-              ],
-            )
-          ],
+              ),
+              Card(
+                margin: EdgeInsets.symmetric(horizontal: 16),
+                color: AppColors.kWhite,
+                elevation: 10,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SizedBox(
+                    height: Responsive.screenHeight(53, context),
+                    child: TabBarView(
+                      children: [
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: Responsive.screenHeight(2, context),
+                            ),
+                            EmailForm(),
+                            SizedBox(
+                              height: Responsive.screenHeight(2, context),
+                            ),
+                            PasswordForm(),
+                            SizedBox(
+                              height: Responsive.screenHeight(2, context),
+                            ),
+                            AppFrom(
+                              textEditController: TextEditingController(),
+                              hintText: 'Confirm Password',
+                            ),
+                            SizedBox(
+                              height: Responsive.screenHeight(2, context),
+                            ),
+                            AppFrom(
+                              textEditController: TextEditingController(),
+                              hintText: 'UserName',
+                              icon: Icons.person,
+                            ),
+                            SizedBox(
+                              height: Responsive.screenHeight(3.5, context),
+                            ),
+                            SignUpButton(),
+                            
+                          ],
+                        ),
+                        LogInPage(),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

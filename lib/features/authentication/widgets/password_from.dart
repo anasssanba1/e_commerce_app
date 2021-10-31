@@ -12,9 +12,9 @@ class PasswordForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppFrom(
-      textEditController: _authController.userPasswordlput,
+      textEditController: _authController.userPasswordIlputSignUp,
       hintText: 'Password',
-      icon: Icons.remove_red_eye_rounded,
+      icon: Icons.remove_red_eye_outlined,
     );
   }
 }

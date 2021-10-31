@@ -13,7 +13,8 @@ class AppButton extends StatelessWidget {
     Key? key,
     required Widget this.child,
     required Color this.color,
-    required Color this.secondColor, required this.onPressed,
+    required Color this.secondColor,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -23,7 +24,7 @@ class AppButton extends StatelessWidget {
       child: Container(
         width: Responsive.screenWidth(85, context),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(4),
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,

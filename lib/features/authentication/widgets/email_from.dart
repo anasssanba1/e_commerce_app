@@ -8,7 +8,7 @@ class EmailForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppFrom(
-      textEditController: _authController.userEmailput,
+      textEditController: _authController.userEmailIputSignUp,
       hintText: 'Email Address',
       icon: Icons.email,
     );

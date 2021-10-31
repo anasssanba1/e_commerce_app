@@ -22,34 +22,12 @@ class SignUpButton extends StatelessWidget {
     return Obx(
       () => AppButton(
         onPressed: () async {
-          await _authController.signUp();
+          await _authController.signUp(context);
           if (_authController.isAuthenticated) {
             Navigator.pushNamed(context, Routes.homePage);
-          } else {
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: AppText(
-                    text: 'Error',
-                    fontSize: FontSizes.bigTitle,
-                    color: AppColors.kBlack),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: AppText(
-                      text: 'OK',
-                      fontSize: FontSizes.middleSize,
-                      color: AppColors.kAmber,
-                    ),
-                  )
-                ],
-              ),
-            );
           }
         },
-        child: _authController.isloading.value
+        child: _authController.isLoadingSignUp.value
             ? Center(
                 child: SizedBox(
                   height: 25,
@@ -60,13 +38,13 @@ class SignUpButton extends StatelessWidget {
                 ),
               )
             : AppText(
-                text: 'SignUp',
+                text: 'Sign Up',
                 color: AppColors.kWhite,
                 fontSize: FontSizes.middleSize,
                 fontWeight: FontWeights.bold,
               ),
-        color: AppColors.kAmber,
-        secondColor: AppColors.kAmberShade,
+        color: AppColors.primaryColor,
+        secondColor: AppColors.secondaryColor,
       ),
     );
   }

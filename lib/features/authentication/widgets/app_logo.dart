@@ -11,15 +11,15 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Responsive.screenHeight(20, context),
+      height: Responsive.screenHeight(19, context),
       width: Responsive.screenWidth(40, context),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            AppColors.kAmber,
-            AppColors.kAmberShade,
+            AppColors.primaryColor,
+            AppColors.secondaryColor,
           ],
         ),
         shape: BoxShape.circle,

@@ -21,7 +21,7 @@ class AppText extends StatelessWidget {
     return Text(
       text,
       textAlign: textAlign,
-      style: GoogleFonts.raleway(
+      style: GoogleFonts.aBeeZee(
         color: color,
         fontSize: fontSize,
         fontWeight: fontWeight,
