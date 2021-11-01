@@ -21,18 +21,27 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Container(
-        width: Responsive.screenWidth(85, context),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [color, secondColor],
+      child: Material(
+        borderRadius: BorderRadius.circular(4),
+        elevation: 3,
+        child: Container(
+          width: Responsive.screenWidth(85, context),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                color,
+                secondColor,
+              ],
+            ),
+          ),
+          height: Responsive.screenHeight(6.3, context),
+          child: Center(
+            child: child,
           ),
         ),
-        height: Responsive.screenHeight(6.3, context),
-        child: Center(child: child),
       ),
     );
   }

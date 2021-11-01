@@ -7,12 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 class AppFrom extends StatelessWidget {
   final TextEditingController textEditController;
   final String hintText;
-  final IconData? icon;
-  const AppFrom({
+  final Widget? icon;
+  bool obscureText;
+   AppFrom({
     Key? key,
     required TextEditingController this.textEditController,
     required String this.hintText,
-    IconData? this.icon,
+    this.obscureText = false,
+    required this.icon,
   }) : super(key: key);
 
   @override
@@ -23,6 +25,8 @@ class AppFrom extends StatelessWidget {
       child: SizedBox(
         width: Responsive.screenWidth(85, context),
         child: TextFormField(
+
+          obscureText: obscureText,
           style: GoogleFonts.aBeeZee(
             color: AppColors.kBlack,
             fontSize: FontSizes.middleSize,
@@ -30,15 +34,13 @@ class AppFrom extends StatelessWidget {
           cursorColor: AppColors.kBlack,
           controller: textEditController,
           decoration: InputDecoration(
+            
             hintText: hintText,
             hintStyle: GoogleFonts.aBeeZee(
                 color: AppColors.ktextHintColor,
                 fontSize: FontSizes.middleSize),
             fillColor: AppColors.kWhite,
-            suffixIcon: Icon(
-              icon,
-              color: AppColors.kiconColor,
-            ),
+            suffixIcon: icon,
             filled: true,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(4),

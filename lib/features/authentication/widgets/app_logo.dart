@@ -10,27 +10,12 @@ class AppLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: Responsive.screenHeight(19, context),
-      width: Responsive.screenWidth(40, context),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            AppColors.primaryColor,
-            AppColors.secondaryColor,
-          ],
-        ),
-        shape: BoxShape.circle,
-      ),
-      child: Image.asset(
-        Imagespath.logo,
-        height: Responsive.screenHeight(100, context),
-        width: Responsive.screenWidth(100, context),
-        color: AppColors.kWhite,
-        fit: BoxFit.cover,
-      ),
+    return Image.asset(
+      Imagespath.logo,
+      height: Responsive.screenHeight(25, context),
+      width: Responsive.screenWidth(100, context),
+      color: AppColors.kWhite,
+      fit: BoxFit.cover,
     );
   }
 }

@@ -7,20 +7,21 @@ import 'package:e_commerce/shared/dialogs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class AuthService {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final Stream<User?> _authStateStream =
       FirebaseAuth.instance.authStateChanges();
   AuthState authState = AuthState.unknown;
+  String? userId;
   Future<void> signUp(
       String userEmail, String password, BuildContext context) async {
     try {
-      await firebaseAuth.createUserWithEmailAndPassword(
+      final authResult= await firebaseAuth.createUserWithEmailAndPassword(
         email: userEmail,
         password: password,
       );
+     userId = authResult.user!.uid;
       _setAuthStatus();
     } on FirebaseAuthException catch (error) {
       authState = AuthState.notAuthenticated;
@@ -33,10 +34,10 @@ class AuthService {
     print(error.message);
     print(error.code);
     switch (error.code) {
-      case "invalid_credential":
+      case "invalid-credential":
         return "Your email address appears to be malformed.";
 
-      case "weak_password":
+      case "weak-password":
         return "Password should be at least 6 characters";
 
       case "invalid-email":
