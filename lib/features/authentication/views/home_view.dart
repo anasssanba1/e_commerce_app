@@ -17,8 +17,9 @@ class HomeView extends StatelessWidget {
             Icons.logout,
             size: 50,
           ),
-          onPressed: () {
-            _authController.signOut();
+          onPressed: () async {
+            await _authController.signOut();
+            _authController.clearAuthPref();
             _authController.authStateStream.listen(
               (User? user) {
                 if (user == null) {

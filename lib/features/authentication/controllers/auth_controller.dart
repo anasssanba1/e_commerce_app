@@ -6,13 +6,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/route_manager.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
   RxBool isLoadingSignUp = false.obs;
   RxBool isLoadingSignIn = false.obs;
+  RxBool isLoadingGoogleSignIn = false.obs;
   RxBool isObscureSignUpPassword = true.obs;
   RxBool isObscureSignUpConfirmPassword = true.obs;
   RxBool isObscureLogInPassword = true.obs;
+  
   String? userId;
   final userEmailIputSignUp = TextEditingController();
   final userPasswordIlputSignUp = TextEditingController();
@@ -21,17 +25,10 @@ class AuthController extends GetxController {
   final userConfirmPassowordInput = TextEditingController();
   final userNameInput = TextEditingController();
   final AuthService _authService;
-  AuthController(this._authService);
-  bool get isAuthenticated {
-    if (_authService.authState == AuthState.authenticated) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
-  
- 
+  AuthController(this._authService);
+  bool get isAuthenticated => _authService.authState == AuthState.authenticated;
+
   @override
   void onClose() {
     super.onClose();
@@ -43,11 +40,33 @@ class AuthController extends GetxController {
     userConfirmPassowordInput.dispose();
   }
 
+  // call this on the sign up button maybe login?
+  void setAuthPref() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setBool('isAuthenticated', true);
+  }
+
+  //call this on the initstate
+  void getAuthPref(BuildContext context) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool? isAuthenticated = preferences.getBool('isAuthenticated');
+
+    if (isAuthenticated != null) {
+      Navigator.pushNamed(context, Routes.homeView);
+    }
+  }
+
+  void clearAuthPref() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.clear();
+  }
+
   Future<void> signUp(BuildContext context) async {
     isLoadingSignUp(true);
     await _authService.signUp(
         userEmailIputSignUp.text, userPasswordIlputSignUp.text, context);
     userId = _authService.userId;
+
     isLoadingSignUp(false);
   }
 
@@ -59,6 +78,13 @@ class AuthController extends GetxController {
     isLoadingSignIn(false);
   }
 
+  Future<void> googleLogin(BuildContext context) async{
+     isLoadingGoogleSignIn(true);
+   await _authService.googleLogin(context);
+    isLoadingGoogleSignIn(false);
+  }
+     
+
   void toggleisObscureSignUpPassword() =>
       isObscureSignUpPassword.value = !isObscureSignUpPassword.value;
   void toggleisObscureSignUpConfirmPassword() =>
@@ -67,6 +93,7 @@ class AuthController extends GetxController {
   void toggleisObscureLogInPassword() =>
       isObscureLogInPassword.value = !isObscureLogInPassword.value;
 
-  void signOut() => _authService.signOut();
+  Future<void> signOut() => _authService.signOut();
   Stream<User?> get authStateStream => _authService.authStateStream;
+  //GoogleSignInAccount get user => _user!;
 }

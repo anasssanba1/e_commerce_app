@@ -7,22 +7,30 @@ import 'package:e_commerce/shared/dialogs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final Stream<User?> _authStateStream =
       FirebaseAuth.instance.authStateChanges();
+  final googleSignIn = GoogleSignIn();
+  GoogleSignInAccount? _user;
   AuthState authState = AuthState.unknown;
   String? userId;
+
   Future<void> signUp(
       String userEmail, String password, BuildContext context) async {
     try {
-      final authResult= await firebaseAuth.createUserWithEmailAndPassword(
+      final authResult = await firebaseAuth.createUserWithEmailAndPassword(
         email: userEmail,
         password: password,
       );
-     userId = authResult.user!.uid;
-      _setAuthStatus();
+      if (authResult.user != null) {
+        authState = AuthState.authenticated;
+        userId = authResult.user!.uid;
+      }
+
+      // _setAuthStatus();
     } on FirebaseAuthException catch (error) {
       authState = AuthState.notAuthenticated;
       final String message = _handleSignUpErrors(error);
@@ -54,29 +62,45 @@ class AuthService {
   Future<void> SignIn(
       String userEmail, String password, BuildContext context) async {
     try {
-      await firebaseAuth.signInWithEmailAndPassword(
+      final authResult = await firebaseAuth.signInWithEmailAndPassword(
         email: userEmail,
         password: password,
       );
-      _setAuthStatus();
+      if (authResult.user != null) {
+        authState = AuthState.authenticated;
+        userId = authResult.user!.uid;
+      }
     } on FirebaseAuthException catch (error) {
       _handleLogInErrors(error, context);
     }
   }
 
-  void signOut() async {
+  Future<void> signOut() async {
     await firebaseAuth.signOut();
     authState = AuthState.unknown;
   }
 
-  void _setAuthStatus() {
-    _authStateStream.listen((User? user) {
-      if (user != null) {
-        authState = AuthState.authenticated;
-      } else {
-        authState = AuthState.unknown;
+  Future<void> googleLogin( BuildContext context) async {
+    try {
+      final user = await googleSignIn.signIn();
+      final googleAuth = await user!.authentication;
+      final userCredential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      try {
+        final authResult =
+            await firebaseAuth.signInWithCredential(userCredential);
+        if (authResult.user != null) {
+          authState = AuthState.authenticated;
+          userId = authResult.user!.uid;
+        }
+      } on FirebaseAuthException catch (error) {
+        _handleLogInErrors(error, context);
       }
-    });
+    } catch (error) {
+      print(error);
+    }
   }
 
   void _handleLogInErrors(FirebaseAuthException error, context) {

@@ -23,7 +23,9 @@ class LogInButton extends StatelessWidget {
       () => AppButton(
         onPressed: () async {
           await _authController.signIn(context);
+          
           if (_authController.isAuthenticated) {
+            _authController.setAuthPref();
             Navigator.pushNamed(context, Routes.homeView);
           }
         },

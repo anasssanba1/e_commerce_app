@@ -1,51 +1,56 @@
 import 'package:e_commerce/constants/app_colors.dart';
+import 'package:e_commerce/constants/app_image_path.dart';
 import 'package:e_commerce/constants/font_sizes.dart';
 import 'package:e_commerce/features/authentication/controllers/auth_controller.dart';
+import 'package:e_commerce/routes/routes.dart';
 import 'package:e_commerce/shared/app_button.dart';
 import 'package:e_commerce/shared/app_text.dart';
+import 'package:e_commerce/shared/loading_spinner.dart';
 import 'package:e_commerce/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class GoogleSignInButton extends StatelessWidget {
-  const GoogleSignInButton({
+  final AuthController _authController = Get.find<AuthController>();
+
+  GoogleSignInButton({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    
-    return SizedBox(
-      width: Responsive.screenWidth(40, context),
-      height: Responsive.screenHeight(6, context),
-      child: AppButton(
-        onPressed: () {},
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: Responsive.screenWidth(5, context),
-            ),
-            Icon(
-              FontAwesomeIcons.google,
-              size: 20,
-              color: AppColors.kWhite,
-            ),
-            SizedBox(
-              width: Responsive.screenWidth(2, context),
-            ),
-            AppText(
-              text: "Google",
-              fontSize: FontSizes.middleSize,
-              color: AppColors.kWhite,
-              fontWeight: FontWeights.bold,
-            )
-          ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(100),
+      child: SizedBox(
+        width: 50,
+        height: 50,
+        child: Obx(
+          () => AppButton(
+            onPressed: () async {
+              await _authController.googleLogin(context);
+              print(_authController.isAuthenticated);
+              if (_authController.isAuthenticated) {
+                _authController.setAuthPref();
+                Navigator.pushNamed(context, Routes.homeView);
+              }
+            },
+            child: _authController.isLoadingGoogleSignIn.value
+                ? SizedBox(
+                    height: 25,
+                    width: 25,
+                    child: LoadingSpinner(
+                      color: AppColors.primaryColor,
+                    ),
+                  )
+                : Image.asset(
+                    Imagespath.googleIcon,
+                  ),
+            color: Colors.transparent,
+            secondColor: Colors.transparent,
+          ),
         ),
-        color: AppColors.kRed,
-        secondColor: AppColors.kRedShade,
       ),
     );
   }

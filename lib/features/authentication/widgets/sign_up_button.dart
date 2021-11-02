@@ -29,9 +29,12 @@ class SignUpButton extends StatelessWidget {
           final isValid = _confirmUserInfo(context, _authController);
           if (isValid) {
             await _authController.signUp(context);
+            
             if (_authController.isAuthenticated) {
+              
               await _db.addUsertoDatabase();
               Navigator.pushNamed(context, Routes.homeView);
+              _authController.setAuthPref();
             }
           }
         },

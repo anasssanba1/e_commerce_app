@@ -4,58 +4,54 @@ import 'package:e_commerce/features/authentication/views/log_in_view.dart';
 import 'package:e_commerce/features/authentication/views/sign_up_view.dart';
 import 'package:e_commerce/features/authentication/widgets/app_logo.dart';
 import 'package:e_commerce/features/authentication/widgets/auth_tabs.dart';
-import 'package:e_commerce/routes/routes.dart';
-
-import 'package:e_commerce/services/firebase/auth_service.dart';
-
 import 'package:e_commerce/utils/responsive.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class AuthView extends StatefulWidget {
-  final AuthController authController;
-  AuthView({Key? key})
-      : authController = Get.put(
-          AuthController(
-            AuthService(),
-          ),
-        ),
-        super(key: key);
+  AuthView({Key? key}) : super(key: key);
 
   @override
   State<AuthView> createState() => _AuthViewState();
 }
 
 class _AuthViewState extends State<AuthView> {
+  final AuthController _authController = Get.find<AuthController>();
+  late final ImageProvider _image;
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.authStateChanges().listen((user) {
-      if (user != null) {
-        WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-          Navigator.pushNamed(context, Routes.homeView);
-        });
-      }
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      _authController.getAuthPref(context);
     });
+    _image = Image.asset(Imagespath.background).image;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(_image, context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: Image.asset(Imagespath.background).image,
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.deepPurple,
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: _image,
+          ),
         ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        resizeToAvoidBottomInset: true,
-        body: SingleChildScrollView(
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: DefaultTabController(
             length: 2,
             child: Column(

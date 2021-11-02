@@ -23,7 +23,7 @@ class AppButton extends StatelessWidget {
       onTap: onPressed,
       child: Material(
         borderRadius: BorderRadius.circular(4),
-        elevation: 3,
+        elevation: 10,
         child: Container(
           width: Responsive.screenWidth(85, context),
           decoration: BoxDecoration(

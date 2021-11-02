@@ -8,7 +8,7 @@ class LoadingSpinner extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircularProgressIndicator(
       color: color,
-      strokeWidth: 3,
+      strokeWidth: 3.5,
     );
   }
 }
