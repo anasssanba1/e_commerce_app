@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/constants/app_image_path.dart';
 import 'package:e_commerce/features/authentication/controllers/auth_controller.dart';
 import 'package:e_commerce/features/authentication/modules/user.dart';
 import 'package:e_commerce/services/firebase/database_serivce.dart';
@@ -11,9 +13,18 @@ class DataBaseController extends GetxController {
   DataBaseController(this._database);
   Future<void> addUsertoDatabase() => _database.addUsertoDatabase(
         UserModule(
-          userId: _authController.userId! ,
+          userId: _authController.userId!,
           userName: _authController.userNameInput.text,
           userEmail: _authController.userEmailIputSignUp.text,
         ),
       );
+  Future<void> addUserGoogleinfo() => _database.addUsertoDatabase(
+        UserModule(
+          userId: _authController.userId!,
+          userName: _authController.googleUser.displayName!,
+          userEmail: _authController.googleUser.email,
+          userImage: _authController.googleUser.photoUrl,
+        ),
+      );
+  CollectionReference get users => _database.users;
 }

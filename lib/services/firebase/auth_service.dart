@@ -80,7 +80,7 @@ class AuthService {
     authState = AuthState.unknown;
   }
 
-  Future<void> googleLogin( BuildContext context) async {
+  Future<void> googleLogin(BuildContext context) async {
     try {
       final user = await googleSignIn.signIn();
       final googleAuth = await user!.authentication;
@@ -88,12 +88,15 @@ class AuthService {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
+
       try {
         final authResult =
             await firebaseAuth.signInWithCredential(userCredential);
         if (authResult.user != null) {
           authState = AuthState.authenticated;
           userId = authResult.user!.uid;
+          _user = user;
+          print(userId);
         }
       } on FirebaseAuthException catch (error) {
         _handleLogInErrors(error, context);
@@ -109,5 +112,6 @@ class AuthService {
     Dialogs.showErrorAlert(context, error.message!);
   }
 
+  GoogleSignInAccount get googleUser => _user!;
   Stream<User?> get authStateStream => _authStateStream;
 }

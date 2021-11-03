@@ -13,24 +13,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  Get.put(
-    AuthController(
-      AuthService(),
-    ),
-  );
-  Get.put<DataBaseController>(
-    DataBaseController(
-      DataBase(),
-    ),
-  );
-
+  MyBindings().dependencies();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       theme: ThemeData(
@@ -39,6 +29,22 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: Routes.authView,
       routes: Routes.routes(context),
+    );
+  }
+}
+
+class MyBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.put(
+      AuthController(
+        AuthService(),
+      ),
+    );
+    Get.put<DataBaseController>(
+      DataBaseController(
+        DataBase(),
+      ),
     );
   }
 }

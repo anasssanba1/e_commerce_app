@@ -26,7 +26,8 @@ class LogInButton extends StatelessWidget {
           
           if (_authController.isAuthenticated) {
             _authController.setAuthPref();
-            Navigator.pushNamed(context, Routes.homeView);
+            Navigator.pushNamedAndRemoveUntil(
+                context, Routes.homeView, (Route<dynamic> route) => false);
           }
         },
         child: _authController.isLoadingSignIn.value

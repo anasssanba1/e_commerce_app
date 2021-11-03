@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/features/authentication/modules/user_state.dart';
 import 'package:e_commerce/features/authentication/views/home_view.dart';
 import 'package:e_commerce/routes/routes.dart';
@@ -16,7 +17,6 @@ class AuthController extends GetxController {
   RxBool isObscureSignUpPassword = true.obs;
   RxBool isObscureSignUpConfirmPassword = true.obs;
   RxBool isObscureLogInPassword = true.obs;
-  
   String? userId;
   final userEmailIputSignUp = TextEditingController();
   final userPasswordIlputSignUp = TextEditingController();
@@ -52,7 +52,8 @@ class AuthController extends GetxController {
     bool? isAuthenticated = preferences.getBool('isAuthenticated');
 
     if (isAuthenticated != null) {
-      Navigator.pushNamed(context, Routes.homeView);
+      Navigator.pushNamedAndRemoveUntil(
+          context, Routes.homeView, (Route<dynamic> route) => false);
     }
   }
 
@@ -74,16 +75,17 @@ class AuthController extends GetxController {
     isLoadingSignIn(true);
     await _authService.SignIn(
         userEmailInputLogin.text, userPasswordInputLogin.text, context);
+    userId = _authService.userId;
 
     isLoadingSignIn(false);
   }
 
-  Future<void> googleLogin(BuildContext context) async{
-     isLoadingGoogleSignIn(true);
-   await _authService.googleLogin(context);
+  Future<void> googleLogin(BuildContext context) async {
+    isLoadingGoogleSignIn(true);
+    await _authService.googleLogin(context);
+    userId = _authService.userId;
     isLoadingGoogleSignIn(false);
   }
-     
 
   void toggleisObscureSignUpPassword() =>
       isObscureSignUpPassword.value = !isObscureSignUpPassword.value;
@@ -95,5 +97,6 @@ class AuthController extends GetxController {
 
   Future<void> signOut() => _authService.signOut();
   Stream<User?> get authStateStream => _authService.authStateStream;
-  //GoogleSignInAccount get user => _user!;
+
+  GoogleSignInAccount get googleUser => _authService.googleUser;
 }

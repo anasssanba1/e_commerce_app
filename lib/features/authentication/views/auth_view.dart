@@ -1,5 +1,6 @@
 import 'package:e_commerce/constants/app_image_path.dart';
 import 'package:e_commerce/features/authentication/controllers/auth_controller.dart';
+import 'package:e_commerce/features/authentication/controllers/database_controller.dart';
 import 'package:e_commerce/features/authentication/views/log_in_view.dart';
 import 'package:e_commerce/features/authentication/views/sign_up_view.dart';
 import 'package:e_commerce/features/authentication/widgets/app_logo.dart';
@@ -20,6 +21,8 @@ class AuthView extends StatefulWidget {
 
 class _AuthViewState extends State<AuthView> {
   final AuthController _authController = Get.find<AuthController>();
+  final DataBaseController _db = Get.find<DataBaseController>();
+
   late final ImageProvider _image;
   @override
   void initState() {
@@ -39,6 +42,7 @@ class _AuthViewState extends State<AuthView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       backgroundColor: Colors.transparent,
       body: Container(
         height: double.infinity,

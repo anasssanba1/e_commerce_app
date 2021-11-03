@@ -2,6 +2,7 @@ import 'package:e_commerce/constants/app_colors.dart';
 import 'package:e_commerce/constants/app_image_path.dart';
 import 'package:e_commerce/constants/font_sizes.dart';
 import 'package:e_commerce/features/authentication/controllers/auth_controller.dart';
+import 'package:e_commerce/features/authentication/controllers/database_controller.dart';
 import 'package:e_commerce/routes/routes.dart';
 import 'package:e_commerce/shared/app_button.dart';
 import 'package:e_commerce/shared/app_text.dart';
@@ -14,6 +15,7 @@ import 'package:get/get.dart';
 
 class GoogleSignInButton extends StatelessWidget {
   final AuthController _authController = Get.find<AuthController>();
+  final DataBaseController _db = Get.find<DataBaseController>();
 
   GoogleSignInButton({
     Key? key,
@@ -33,7 +35,10 @@ class GoogleSignInButton extends StatelessWidget {
               print(_authController.isAuthenticated);
               if (_authController.isAuthenticated) {
                 _authController.setAuthPref();
-                Navigator.pushNamed(context, Routes.homeView);
+                _db.addUserGoogleinfo();
+                Navigator.pushNamedAndRemoveUntil(
+
+                context, Routes.homeView, (Route<dynamic> route) => false);
               }
             },
             child: _authController.isLoadingGoogleSignIn.value
