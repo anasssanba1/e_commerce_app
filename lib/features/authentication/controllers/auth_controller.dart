@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/features/authentication/modules/user_state.dart';
-import 'package:e_commerce/features/authentication/views/home_view.dart';
+import 'package:e_commerce/features/products/views/home_view.dart';
 import 'package:e_commerce/routes/routes.dart';
 import 'package:e_commerce/services/firebase/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';

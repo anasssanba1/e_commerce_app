@@ -27,10 +27,10 @@ class _AuthViewState extends State<AuthView> {
   @override
   void initState() {
     super.initState();
+    _image = Image.asset(Imagespath.background).image;
     SchedulerBinding.instance!.addPostFrameCallback((_) {
       _authController.getAuthPref(context);
     });
-    _image = Image.asset(Imagespath.background).image;
   }
 
   @override
