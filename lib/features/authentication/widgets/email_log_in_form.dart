@@ -1,6 +1,7 @@
 import 'package:e_commerce/features/authentication/controllers/auth_controller.dart';
 import 'package:e_commerce/shared/app_form.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class EmailLogInForm extends StatelessWidget {
   const EmailLogInForm({
@@ -16,7 +17,10 @@ class EmailLogInForm extends StatelessWidget {
     return AppFrom(
       textEditController: _authController.userEmailInputLogin,
       hintText: 'Email Address',
-      icon: Icon(Icons.email),
+      icon: Icon(
+        Iconsax.sms,
+        color: Colors.white,
+      ),
     );
   }
 }

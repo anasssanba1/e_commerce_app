@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/constants/app_image_path.dart';
 import 'package:e_commerce/features/authentication/controllers/auth_controller.dart';
 import 'package:e_commerce/features/authentication/modules/user.dart';
 import 'package:e_commerce/services/firebase/database_serivce.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 
 class DataBaseController extends GetxController {

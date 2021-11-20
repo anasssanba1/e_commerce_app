@@ -23,7 +23,7 @@ class LogInButton extends StatelessWidget {
       () => AppButton(
         onPressed: () async {
           await _authController.signIn(context);
-          
+
           if (_authController.isAuthenticated) {
             _authController.setAuthPref();
             Navigator.pushNamedAndRemoveUntil(
@@ -44,10 +44,9 @@ class LogInButton extends StatelessWidget {
                 text: 'Log In',
                 color: AppColors.kWhite,
                 fontSize: FontSizes.middleSize,
-                fontWeight: FontWeights.bold,
               ),
-        color: AppColors.primaryColor,
-        secondColor: AppColors.secondaryColor,
+        color: Colors.pink.withOpacity(0.6),
+        secondColor: Colors.pink.withOpacity(0.7),
       ),
     );
   }

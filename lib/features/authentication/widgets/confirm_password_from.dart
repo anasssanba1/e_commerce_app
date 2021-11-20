@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/state_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:iconsax/iconsax.dart';
 
 class ConfirmPasswordForm extends StatelessWidget {
   final _authController = Get.find<AuthController>();
@@ -22,8 +23,16 @@ class ConfirmPasswordForm extends StatelessWidget {
               _authController.toggleisObscureSignUpConfirmPassword();
             },
             child: _authController.isObscureSignUpConfirmPassword.value
-                ? Icon(FontAwesomeIcons.eye, size: 20)
-                : Icon(FontAwesomeIcons.eyeSlash, size: 20),
+                ? Icon(
+                    FontAwesomeIcons.eye,
+                    size: 20,
+                    color: Colors.white,
+                  )
+                : Icon(
+                    Iconsax.volume_slash,
+                    size: 20,
+                    color: Colors.white,
+                  ),
           ),
         ));
   }

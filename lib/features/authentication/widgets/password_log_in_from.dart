@@ -24,8 +24,16 @@ class PasswordLogInForm extends StatelessWidget {
               _authController.toggleisObscureLogInPassword();
             },
             child: _authController.isObscureLogInPassword.value
-                ? Icon(FontAwesomeIcons.eye, size: 20)
-                : Icon(FontAwesomeIcons.eyeSlash, size: 20),
+                ? Icon(
+                    FontAwesomeIcons.eye,
+                    size: 20,
+                    color: Colors.white,
+                  )
+                : Icon(
+                    FontAwesomeIcons.eyeSlash,
+                    size: 20,
+                    color: Colors.white,
+                  ),
           ),
         ));
   }

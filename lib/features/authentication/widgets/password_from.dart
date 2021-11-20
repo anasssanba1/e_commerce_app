@@ -23,8 +23,10 @@ class PasswordForm extends StatelessWidget {
             _authController.toggleisObscureSignUpPassword();
           },
           child: _authController.isObscureSignUpPassword.value
-              ? Icon(FontAwesomeIcons.eye, size: 20)
-              : Icon(FontAwesomeIcons.eyeSlash, size: 20),
+              ? Icon(FontAwesomeIcons.eye, size: 20 ,color: Colors.white,)
+              : Icon(FontAwesomeIcons.eyeSlash, size: 20,
+                  color: Colors.white,
+                ),
         ),
       ),
     );

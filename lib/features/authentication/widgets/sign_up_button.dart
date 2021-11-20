@@ -52,10 +52,9 @@ class SignUpButton extends StatelessWidget {
                 text: 'Sign Up',
                 color: AppColors.kWhite,
                 fontSize: FontSizes.middleSize,
-                fontWeight: FontWeights.bold,
               ),
-        color: AppColors.primaryColor,
-        secondColor: AppColors.secondaryColor,
+        color: Colors.pink.withOpacity(0.6),
+        secondColor: Colors.pink.withOpacity(0.7),
       ),
     );
   }

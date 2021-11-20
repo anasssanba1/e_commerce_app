@@ -14,7 +14,7 @@ class AppLogo extends StatelessWidget {
       Imagespath.logo,
       height: Responsive.screenHeight(25, context),
       width: Responsive.screenWidth(100, context),
-      color: AppColors.kWhite,
+      color: Colors.transparent,
       fit: BoxFit.cover,
     );
   }
